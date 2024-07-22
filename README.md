@@ -19,20 +19,14 @@
 
 ## Introduction
 
-**nf-core/quantifyprotein** is a bioinformatics pipeline that ...
-
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+**nf-core/quantifyprotein** is a bioinformatics pipeline that converts the timsTOF-pro .d folder data into mzML and performs label-free-quantification of proteins in the file(s)
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Read and Covert ([`timsconvert`](https://github.com/gtluu/timsconvert))
+2. Perform label-free-quantification ([`sage`](https://github.com/lazear/sage))
 
 ## Usage
 
@@ -94,6 +88,13 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
+[Label free quantification of proteins in samples(s) obtained using LC-MS-MS-.. timsTOF-pro instrument](https://github.com/animesh/nf-core-quantifyprotein)
+
+Luu GT, Freitas MA, Lizama-Chamu I, McCaughey CS, Sanchez LM, Wang M.
+Bioinformatics. 2022 Aug 10;38(16):4046-4047. doi: 10.1093/bioinformatics/btac419. PMID: 35758608; PMCID: PMC9991885.
+
+Lazear MR. Sage: An Open-Source Tool for Fast Proteomics Searching and Quantification at Scale. J Proteome Res. 2023 Nov 3;22(11):3652-3659. doi: 10.1021/acs.jproteome.3c00486. Epub 2023 Oct 11. PMID: 37819886.
+
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use nf-core/quantifyprotein for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
@@ -108,3 +109,5 @@ You can cite the `nf-core` publication as follows:
 > Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
 >
 > _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
+
+
