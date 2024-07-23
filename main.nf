@@ -45,7 +45,8 @@ workflow NFCORE_QUANTIFYPROTEIN {
     )
 
     emit:
-    multiqc_report = QUANTIFYPROTEIN.out.multiqc_report // channel: /path/to/multiqc_report.html
+    //multiqc_report = QUANTIFYPROTEIN.out.multiqc_report // channel: /path/to/multiqc_report.html
+    multiqc_report = QUANTIFYPROTEIN.out.multiqc_report // channel: /path/to/lfq.tsv
 
 }
 /*

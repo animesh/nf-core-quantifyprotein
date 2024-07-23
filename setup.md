@@ -28,24 +28,46 @@ nextflow  -v
 nextflow  -v
 ```
 
+docker [install](https://docs.docker.com/engine/install/ubuntu/)
+```
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker erd runc; do sudo apt-get remove $pkg; done
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+# Add the repository to Apt sources:
+echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.tps://download.docker.com/linux/ubuntu \
+etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin compose-plugin
+sudo docker run hello-world
+```
+
+
 [test](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
 ```
  ./nextflow run hello
+sudo ./nextflow run nf-core/rnaseq -profile test,docker --outdir test #-resume e.g., result1 file://wsl.localhost/Ubuntu/home/ash022/nf-core-quantifyprotein/test/fastqc/SAMPLE1_PE_1_fastqc.html
 ```
 
-[sandbox](https://github.com/mahesh-panchal/Nextflow_sandbox)
+[test](https://github.com/animesh/scripts/blob/master/scratch.slurm)
 ```
-echo "sample,fullpath" > samples.csv #https://github.com/animesh/scripts/blob/master/scratch.slurm
-ls -1d /mnt/z/*.d > S1
+wget "https://server-share.promec.sigma2.no/raw/HeLa.tar?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=4VFDSD3OB6SBSJAASVXZ%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131419Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiI0VkZEU0QzT0I2U0JTSkFBU1ZYWiIsImV4cCI6MTcyMTc0Mzk1MywicGFyZW50IjoicHJvbWVjc2hhcmUifQ.DTcGnBLlkwHgdRlcGUIkDtOVCjf2Ke73MreQAj1ciO21IMVMM8Vq8zbYwYBgG8DBnES7hzMoSL5Vm6Mvpz8mHQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=5abb13430d1b956f83abbe21807072261993b110887d722f64889eed55214dc7" -O HeLa.tar
+mkdir data
+tar xvf HeLa.tar -C data --strip-components=10
+echo "sample,fullpath" > samples.csv
+ls -1d $PWD/data/*.d > S1
 cat S1  | tr '\n' '\0' | xargs -0 -n 1 basename > S0
 paste -d ','  S? >> samples.csv
 cat samples.csv
 wget "https://rest.uniprot.org/uniprotkb/stream?format=fasta&includeIsoform=true&query=%28%28proteome%3AUP000005640%29%29" -O human.fasta
 wget "http://ftp.thegpm.org/fasta/cRAP/crap.fasta" -O crap.fasta
-cat human.fasta crap.fasta >> human
+cat human.fasta crap.fasta >> human_crap.fasta
 #wget https://raw.githubusercontent.com/animesh/scripts/master/sage.json
-#sage sage.json -f human --batch-size 4 *.mzML
-nextflow main.nf --max_memory '16.GB' --max_cpus 4 -profile docker --proteome human --input samples.csv --outdir sage_samples
+#sage sage.json -f human_crap.fasta --batch-size 5 *.mzML
+nextflow main.nf --max_memory '20.GB' --max_cpus 5 -profile docker --fasta human_crap.fasta --input samples.csv --outdir sage_samples
 ```
 
 [todo](https://github.com/sylabs/singularity/blob/main/INSTALL.md)
@@ -54,4 +76,5 @@ sudo snap install go --classic
 go get -d github.com/sylabs/singularity
 singularity run docker://godlovedc/lolcow
 ```
+[sandbox](https://github.com/mahesh-panchal/Nextflow_sandbox)
 
