@@ -52,7 +52,7 @@ sudo docker run hello-world
 sudo ./nextflow run nf-core/rnaseq -profile test,docker --outdir test #-resume e.g., result1 file://wsl.localhost/Ubuntu/home/ash022/nf-core-quantifyprotein/test/fastqc/SAMPLE1_PE_1_fastqc.html
 ```
 
-[test](https://github.com/animesh/scripts/blob/master/scratch.slurm)
+[DDA](https://github.com/animesh/scripts/blob/master/scratch.slurm)
 ```
 wget "https://server-share.promec.sigma2.no/raw/HeLa.tar?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=4VFDSD3OB6SBSJAASVXZ%2F20240723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240723T131419Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiI0VkZEU0QzT0I2U0JTSkFBU1ZYWiIsImV4cCI6MTcyMTc0Mzk1MywicGFyZW50IjoicHJvbWVjc2hhcmUifQ.DTcGnBLlkwHgdRlcGUIkDtOVCjf2Ke73MreQAj1ciO21IMVMM8Vq8zbYwYBgG8DBnES7hzMoSL5Vm6Mvpz8mHQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=5abb13430d1b956f83abbe21807072261993b110887d722f64889eed55214dc7" -O HeLa.tar
 mkdir data
@@ -67,8 +67,15 @@ wget "http://ftp.thegpm.org/fasta/cRAP/crap.fasta" -O crap.fasta
 cat human.fasta crap.fasta >> human_crap.fasta
 #wget https://raw.githubusercontent.com/animesh/scripts/master/sage.json
 #sage sage.json -f human_crap.fasta --batch-size 5 *.mzML
-nextflow main.nf --max_memory '20.GB' --max_cpus 5 -profile docker --fasta human_crap.fasta --input samples.csv --outdir sage_samples
+./nextflow main.nf --max_memory '20.GB' --max_cpus 5 -profile docker --fasta human_crap.fasta --input samples.csv --outdir sage_samples
 ```
+
+[DIA](https://bioshare.bioinformatics.ucdavis.edu/bioshare/view/cts8a50sb36put8/)
+```
+wget -r --level=10 -nH -nc --cut-dirs=3 --no-parent --reject "wget_index.html" check-certificate --header "Cookie: sessionid=None;" https://bioshare.formatics.ucdavis.edu/bioshare/wget/cts8a50sb36put8/wget_index.html
+for i in 26*.zip ; do echo $i ; unzip $i ; done
+```
+
 
 [todo](https://github.com/sylabs/singularity/blob/main/INSTALL.md)
 ```
